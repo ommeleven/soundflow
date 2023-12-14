@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import ListItem from "@/components/ListItem";
 
 
 export default function Home() {
@@ -12,7 +13,32 @@ export default function Home() {
     overflow-hidden
     ">
       <Header>
-        HeaderHeader
+        <div className="mb-2">
+          <h1 className="
+           text-3xl
+           font-bold
+         text-white
+         ">
+          Welcome Back
+        </h1>
+        <div
+          className="
+            grid
+            grid-cols-2
+            sm:grid-cols-2
+            xl:grid-cols-3
+            2xl:grid-cols-4
+            gap-3
+            mt-4
+          "
+        >
+          <ListItem 
+          image="/images/liked.png"
+          name="Liked Songs"
+          href="liked"
+          />
+        </div>
+        </div>
       </Header>
    </div>
   )
