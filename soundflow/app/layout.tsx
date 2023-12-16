@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
 import './globals.css'
 import Sidebar from '@/components/Sidebar'
+import SupabaseProvider from '@/providers/SupabaseProvider'
 
 const font = Figtree({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'SoundFlow',
-  description: 'Stream millions of songs for free.',
+  description: 'Listen to music from around the world',
 }
 
 export default function RootLayout({
@@ -18,10 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
+        <SupabaseProvider>
         <Sidebar>
           
         {children}
-        </Sidebar></body>
+        </Sidebar>
+        </SupabaseProvider>
+        </body>
     </html>
   )
 }
