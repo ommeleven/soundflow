@@ -20,10 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <SupabaseProvider>
+        <UserProvider>
         <Sidebar>
           
         {children}
         </Sidebar>
+        </UserProvider>
         </SupabaseProvider>
         </body>
     </html>
