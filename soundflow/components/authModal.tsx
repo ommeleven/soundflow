@@ -1,8 +1,17 @@
 "use client";
 
+import { useSupabaseClient,
+        useSessionContext 
+} from "@supabase/auth-helpers-react";
+
+import { useRouter } from "next/navigation";
 import Modal from "./Modal";
+import { Auth } from "@supabase/auth-ui-react";
 
 const AuthModal = () => {
+    const supabaseClient = useSupabaseClient();
+    const router = useRouter();
+    const { session } = useSessionContext();
     return  (
         <Modal
             title="welcome back"
@@ -10,8 +19,11 @@ const AuthModal = () => {
             isOpen
             onChange = {() => {}}    
         >
-            auth modal children
+            <Auth
+                supabaseClient={supabaseClient}
+            />
         </Modal>
+        
 
 
     );
