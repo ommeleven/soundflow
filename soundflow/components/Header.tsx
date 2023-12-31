@@ -7,6 +7,7 @@ import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -19,6 +20,8 @@ const  Header: React.FC<HeaderProps> = ({
 }) => {
     const authModal = useAuthModal();
     const router = useRouter();
+
+    const supabaseClient = useSupabaseClient();
 
     const handleLogout = () => {
         // Handle logout later
