@@ -8,6 +8,8 @@ import { BiSearch } from "react-icons/bi";
 import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@/hooks/useUser";
+import { FaUserAlt } from "react-icons/fa";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -22,9 +24,16 @@ const  Header: React.FC<HeaderProps> = ({
     const router = useRouter();
 
     const supabaseClient = useSupabaseClient();
+    const { user }  = useUser();
 
-    const handleLogout = () => {
-        // Handle logout later
+    const handleLogout = async () => {
+        const { error } = await supabaseClient.auth.signOut();
+        // TODO: reset any playing songs
+        router.refresh();
+
+        if (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -110,6 +119,23 @@ const  Header: React.FC<HeaderProps> = ({
                 items-center
                 gap-x-4
                 ">
+                    {user ? (
+                        <div
+                            className="flex gap-x-4 items-center">
+                                <Button
+                                    onClick={handleLogout}
+                                    className="bg-white px-6 py-2"
+                                >
+                                    Logout
+                                </Button>
+                                <Button
+                                    onClick = {() => router.push('/account')}
+                                    className="bg-white"    
+                                >
+                                    <FaUserAlt />
+                                </Button>
+                            </div>
+                    ): (
                     <>
                     <div>
                         <Button
@@ -133,7 +159,9 @@ const  Header: React.FC<HeaderProps> = ({
                             Login 
                         </Button>
                     </div>
+                    
                     </>
+                    )}
             </div>
             </div>
            {children}
