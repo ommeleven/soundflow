@@ -5,6 +5,8 @@ import Modal from "./Modal"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import Input from "./Input";
+import Button from "./Button";
+import toast from "react-hot-toast";
 
 const UploadModal = () => {
     const {
@@ -20,7 +22,7 @@ const UploadModal = () => {
         }
     })
 
-    const [isLoading, setIsLoading] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     const uploadModal = useUploadModal();
     const onChange = (open: boolean) => {
@@ -30,7 +32,14 @@ const UploadModal = () => {
     } 
 
     const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        //upload to Supabase
+        try {
+            setIsLoading(true);
+
+        } catch (error) {
+            toast.error("Something went wrong!")
+        } finally {
+            setIsLoading(false);
+        }
     }
     return (
         <Modal
@@ -84,6 +93,9 @@ const UploadModal = () => {
                     
                     />
                 </div>
+                <Button disabled={isLoading} type="submit">
+                    Create
+                </Button>
             </form>
         </Modal>
     )
